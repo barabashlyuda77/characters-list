@@ -5,9 +5,8 @@ import {
   Route,
 } from 'react-router-dom'
 
-import AddImagePage from '../../pages/AddImagePage/AddImagePage'
-import ViewImagePage from '../../pages/ViewImagePage/ViewImagePage'
-import ListImagePage from '../../pages/ListImagePage/ListImagePage'
+import CharactersListPage from '../../pages/CharactersListPage/CharactersListPage'
+import ViewCharacterPage from '../../pages/ViewCharacterPage/ViewCharacterPage'
 import './App.css'
 
 const App = () => {
@@ -15,16 +14,10 @@ const App = () => {
     <Router>
         <Switch>
           <Route exact path="/">
-            <ListImagePage />
+            <CharactersListPage />
           </Route>
-          <Route path="/add">
-            <AddImagePage />
-          </Route>
-          <Route path="/edit/:id">
-            <AddImagePage />
-          </Route>
-          <Route path="/view/:id">
-            <ViewImagePage />
+          <Route path="/details/:id">
+            <ViewCharacterPage />
           </Route>
         </Switch>
     </Router>
