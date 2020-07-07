@@ -1,1 +1,1 @@
-export const imageListSelector = state => state
+export const listSelector = state => state

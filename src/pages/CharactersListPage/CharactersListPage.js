@@ -1,22 +1,24 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
-// import { imageListSelector} from '../../selectors'
-// import { getImageList, removeImage } from '../../actions'
+import { listSelector} from '../../selectors'
+import { getList } from '../../actions'
+import ListWrapper from '../../components/ListWrapper/ListWrapper.js'
 import './CharactersListPage.scss'
 
 const CharactersListPage = () => {
-  // const imageList = useSelector(imageListSelector)
+  const charactersList = useSelector(listSelector)
   const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   dispatch(getImageList())
-  // }, [dispatch])
+  useEffect(() => {
+    dispatch(getList())
+  }, [dispatch])
 
   return (
     <>
-      <h1>CharactersListPage</h1>
+      <h1>Characters List</h1>
+      <div>Filters</div>
+      <ListWrapper list={charactersList}/>
     </>
   );
 }

@@ -1,11 +1,10 @@
-const initialState = []
+const initialState = [];
 
 export const rootReducer = (state = initialState, action) => {
     switch (action.type) {
-      case 'SET_IMAGE_LIST':
-        return action.payload.imageList
+      case 'SET_LIST':
+        return action.payload
       default:
         return state
     }
   }
-  

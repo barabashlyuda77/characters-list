@@ -1,9 +1,17 @@
 import { v4 as uuid } from 'uuid';
 const LOCAL_STORAGE_KEY = 'IMAGE_LIST'
 
+export const apiGetList = () => {
+    const items = localStorage.getItem(LOCAL_STORAGE_KEY)
+    return items
+        ? JSON.parse(items)
+        : []
+}
+
+// /////////
 export const apiGetImageList = () => {
     const items = localStorage.getItem(LOCAL_STORAGE_KEY)
-    return items 
+    return items
         ? JSON.parse(items)
         : []
 }
@@ -44,7 +52,7 @@ export const apiReplaceImage = (imageId, { image, tooltipText, tooltipPosition, 
                     tooltipColor
                 }
         })
-    
+
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newImageList))
     return newImageList
 }
