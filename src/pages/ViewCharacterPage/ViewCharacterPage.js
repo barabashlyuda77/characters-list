@@ -15,7 +15,7 @@ const ViewCharacterPage = () => {
 
   useEffect(() => {
     dispatch(getDetails(character))
-  }, [dispatch])
+  }, [dispatch, character])
 
   return (
     <>

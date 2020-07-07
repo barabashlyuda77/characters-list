@@ -1,13 +1,14 @@
 import React from 'react'
 
-import List from '../List/List.js'
+import List from '../List/List'
+import ListFavourites from '../ListFavourites/ListFavourites'
 import './ListWrapper.scss'
 
 const ListWrapper = ({ list }) => {
 
   return (
     <div className="list-wrapper">
-      <div className="favourites-list">favourites</div>
+      <ListFavourites />
       <List list={list}/>
     </div>
   );
