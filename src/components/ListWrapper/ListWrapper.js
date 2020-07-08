@@ -1,12 +1,13 @@
 import React from 'react'
 
 import List from '../List/List'
+import Filters from '../Filters/Filters'
 import './ListWrapper.scss'
 
-const ListWrapper = ({ list }) => {
+const ListWrapper = ({ list, changeHandler }) => {
   return (
     <div className="list-wrapper">
-      <div>Filters</div>
+      <Filters changeHandler={changeHandler}/>
       <List list={list}/>
     </div>
   );

@@ -13,8 +13,6 @@ const ViewCharacterPage = () => {
   const { id: characterId } = useParams()
   const character = useSelector(({ charactersList }) => charactersList.find(item => item.name === characterId))
   const { movies, species, spaceships } = useSelector(detailsListSelector);
-  const item = useSelector(detailsListSelector);
-  console.log('item', item);
 
   useEffect(() => {
     dispatch(getDetails(character))
@@ -25,9 +23,11 @@ const ViewCharacterPage = () => {
   }
 
   return (
-    <>
+    <div className="details-page-wrapper">
       <div>
-        <LinkButton to={`/`}>Back</LinkButton>
+        <LinkButton to={`/`}>
+          <img src="back-arrow.png" alt="Back"/>
+        </LinkButton>
       </div>
       <h1>Character Details</h1>
       <div className="details-wrapper">
@@ -36,7 +36,7 @@ const ViewCharacterPage = () => {
         <p>{`Movies: ${movies.join(', ')}`}</p>
         <p>{`Spaceships: ${spaceships.join(', ')}`}</p>
       </div>
-    </>
+    </div>
   );
 }
 

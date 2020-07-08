@@ -19,11 +19,13 @@ const CharactersListPage = () => {
   if (charactersList.length === 0) {
     return <Progress />
   }
-
+  const changeHandler = (e) => {
+    console.log('name, value', e.target.name, e.target.name);
+  }
   return (
     <div className="characters-list-page">
       <ListFavourites />
-      <ListWrapper list={charactersList}/>
+      <ListWrapper list={charactersList} changeHandler={changeHandler}/>
     </div>
   );
 }

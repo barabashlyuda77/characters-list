@@ -20,6 +20,16 @@
       height: 100%;
       text-align: center;
       padding-top: 200px;
+
+      .is-over {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0.5;
+        backgroundColor: #f2f2f2;
+      }
     }
 
     .favourites-list-container {
