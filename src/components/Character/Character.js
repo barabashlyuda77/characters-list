@@ -2,7 +2,7 @@ import React from 'react'
 import { useDrag } from 'react-dnd'
 
 import { DraggableTypes } from '../../helpers'
-import LinkButton from '../../components/link-button/LinkButton'
+import LinkButton from '../../components/LinkButton/LinkButton'
 import './Character.scss'
 
 const Character = ({ character }) => {

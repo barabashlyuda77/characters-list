@@ -1,0 +1,20 @@
+.favourite-character {
+  margin: 15px 0;
+  display: flex;
+  justify-content: space-between;
+
+  .name {
+    margin-right: 40px;
+  }
+
+  img {
+    width: 17px;
+    cursor: pointer;
+
+    &:hover {
+      padding: 1px;
+      background-color: #dadbdb;
+      border-radius: 8px;
+    }
+  }
+}

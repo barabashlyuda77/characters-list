@@ -20,8 +20,15 @@ export const rootReducer = (state = initialState, action) => {
           spaceships: action.payload.spaceships,
          }
        case 'ADD_FAVOURITES':
-       console.log('action', action);
-         return { ...state, favourites: [...state.favourites, action.payload.character]}
+         return {
+           ...state,
+           favourites: [...state.favourites, action.payload.character]
+         }
+       case 'REMOVE_FROM_FAVOURITES':
+         return {
+           ...state,
+           favourites: state.favourites.filter(({ name }) => name !== action.payload)
+         }
       default:
         return state
     }

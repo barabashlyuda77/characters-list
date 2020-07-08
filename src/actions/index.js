@@ -3,6 +3,7 @@ export const GET_LIST = 'GET_LIST'
 export const GET_DETAILS = 'GET_DETAILS'
 export const SET_DETAILS = 'SET_DETAILS'
 export const ADD_FAVOURITES = 'ADD_FAVOURITES'
+export const REMOVE_FROM_FAVOURITES = 'REMOVE_FROM_FAVOURITES'
 
 export const getList = () => ({
   type: 'GET_LIST'
@@ -26,4 +27,9 @@ export const setDetails = details => ({
 export const addToFavourites = character => ({
   type: 'ADD_FAVOURITES',
   payload: character
+})
+
+export const removeFromFavourites = name => ({
+  type: 'REMOVE_FROM_FAVOURITES',
+  payload: name
 })

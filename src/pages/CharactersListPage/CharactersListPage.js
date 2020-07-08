@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { listSelector} from '../../selectors'
 import { getList } from '../../actions'
-import ListWrapper from '../../components/ListWrapper/ListWrapper.js'
+import ListWrapper from '../../components/ListWrapper/ListWrapper'
+import ListFavourites from '../../components/ListFavourites/ListFavourites'
+import Progress from '../../components/Progress/Progress'
 import './CharactersListPage.scss'
 
 const CharactersListPage = () => {
@@ -14,12 +16,15 @@ const CharactersListPage = () => {
     dispatch(getList())
   }, [dispatch])
 
+  if (charactersList.length === 0) {
+    return <Progress />
+  }
+
   return (
-    <>
-      <h1>Characters List</h1>
-      <div>Filters</div>
+    <div className="characters-list-page">
+      <ListFavourites />
       <ListWrapper list={charactersList}/>
-    </>
+    </div>
   );
 }
 

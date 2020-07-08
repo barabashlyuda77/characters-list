@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { detailsListSelector } from '../../selectors'
 import { getDetails } from '../../actions'
-import LinkButton from '../../components/link-button/LinkButton'
+import LinkButton from '../../components/LinkButton/LinkButton'
+import Progress from '../../components/Progress/Progress'
 import './ViewCharacterPage.scss'
 
 const ViewCharacterPage = () => {
@@ -12,10 +13,16 @@ const ViewCharacterPage = () => {
   const { id: characterId } = useParams()
   const character = useSelector(({ charactersList }) => charactersList.find(item => item.name === characterId))
   const { movies, species, spaceships } = useSelector(detailsListSelector);
+  const item = useSelector(detailsListSelector);
+  console.log('item', item);
 
   useEffect(() => {
     dispatch(getDetails(character))
   }, [dispatch, character])
+
+  if (species.length === 0 && movies.length === 0 && spaceships.length === 0) {
+    return <Progress />
+  }
 
   return (
     <>
