@@ -1,5 +1,6 @@
 import React from 'react'
 
+import DeleteImage from '../../image/delete.png'
 import './FavouriteCharacter.scss'
 
 const FavouriteCharacter = ({ name, handleRemove }) => {
@@ -7,7 +8,7 @@ const FavouriteCharacter = ({ name, handleRemove }) => {
     <div className="favourite-character">
       <div className="name">{name}</div>
       <div className="delete" onClick={handleRemove}>
-        <img src="delete.png" alt="Remove"/>
+        <img src={DeleteImage} alt="Remove"/>
       </div>
     </div>
   );

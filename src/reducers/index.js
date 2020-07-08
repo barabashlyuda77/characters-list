@@ -1,3 +1,10 @@
+import {
+  filterByFilms,
+  filterBySpecies,
+  filterByBirthYearFrom,
+  filterByBirthYearTo,
+} from './helpers.js'
+
 const initialState = {
   movies: [],
   species: [],
@@ -14,43 +21,6 @@ const initialState = {
   }
 };
 
-const isIncludes = (item, searchText) => item.toLowerCase().includes(searchText.toLowerCase())
-
-const filterByFilms = (characters, filmName) => {
-  if (filmName === null) {
-    return characters
-  }
-  return characters.filter(
-    character => character.films.find(
-      film => film.toLowerCase().includes(filmName.toLowerCase())
-    )
-  )
-}
-
-const filterBySpecies = (characters, speciesName) => {
-  if (speciesName === null) {
-    return characters
-  }
-  return characters.filter(
-    item => item.species.find(
-      species => species.toLowerCase().includes(speciesName.toLowerCase())
-    )
-  )
-}
-
-const filterByBirthYearFrom = (characters, birthYearFrom) => {
-  return birthYearFrom === null
-    ? characters
-    : characters.filter(item => item.birth_year >= Number(birthYearFrom))
-}
-
-const filterByBirthYearTo = (characters, birthYearTo) => {
-  return birthYearTo === null
-    ? characters
-    : characters.filter(item => item.birth_year <= Number(birthYearTo))
-}
-
-
 export const rootReducer = (state = initialState, action) => {
     switch (action.type) {
       case 'SET_LIST':
@@ -59,13 +29,6 @@ export const rootReducer = (state = initialState, action) => {
           charactersList: action.payload,
           filteredCharacters: action.payload,
         }
-      case 'SET_DETAILS':
-        return {
-          ...state,
-          movies: action.payload.movies,
-          species: action.payload.species,
-          spaceships: action.payload.spaceships,
-         }
        case 'ADD_FAVOURITES':
          return {
            ...state,

@@ -6,6 +6,7 @@ import { addToFavourites, removeFromFavourites } from '../../actions'
 import { DraggableTypes, isFavourite } from '../../helpers'
 import { favouritesSelector } from '../../selectors'
 import FavouriteCharacter from '../FavouriteCharacter/FavouriteCharacter'
+import DragAndDrop from '../../image/drag-and-drop.png'
 import './ListFavourites.scss'
 
 const ListFavourites = () => {
@@ -14,8 +15,11 @@ const ListFavourites = () => {
 
   const [{ isOver }, drop] = useDrop({
     accept: DraggableTypes.CHARACTER,
-    // TODO how to make better
-    drop: (character) =>  isFavourite(character, favourites) ?  undefined : dispatch(addToFavourites(character)),
+    drop: (character) =>  {
+      if (!isFavourite(character, favourites)) {
+        return dispatch(addToFavourites(character))
+      }
+    },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
       canDrop: !!monitor.canDrop()
@@ -34,19 +38,9 @@ const ListFavourites = () => {
       }}>
         {favourites.length === 0 ?
           (<div className="dnd-img-wrapper">
-            <img src="drag-and-drop.png" alt="Drop character"/>
+            <img src={DragAndDrop} alt="Drop character"/>
             {isOver && (
-            <div className="is-over"
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                height: '100%',
-                width: '100%',
-                opacity: 0.5,
-                backgroundColor: '#f2f2f2',
-              }}
-            />
+            <div className="is-over" />
           )}
           </div>)
           : (
@@ -56,18 +50,8 @@ const ListFavourites = () => {
 
               ))}
               {isOver && (
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  height: '100%',
-                  width: '100%',
-                  opacity: 0.5,
-                  backgroundColor: '#f2f2f2',
-                }}
-              />
-            )}
+              <div className="is-over"/>
+              )}
             </div>
           )
         }

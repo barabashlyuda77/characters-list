@@ -1,21 +1,24 @@
-import { takeLatest, call, put, all } from 'redux-saga/effects'
+import { takeLatest, call, put, all, select } from 'redux-saga/effects'
 import axios from 'axios'
 
 import { GET_LIST, setList, setLoading } from '../actions'
-
-const ITEMS_PER_PAGE = 10
+import {
+  getEndpointsList,
+  injectMoviesIntoCharacters,
+  injectSpeciesIntoCharacters,
+  injectStarshipsIntoCharacters,
+  transformBirthYears,
+  getNamesFromUrls,
+  getTitlesFromUrls,
+ } from './helpers.js'
 
 function* getMovies() {
   const { data: { results: movies }} = yield call(
     axios.get,
     'https://swapi.dev/api/films/'
   )
-  const movieTitlesByUrl = movies.reduce((acc, movie) => {
-    acc[movie.url] = movie.title
-    return acc
-  }, {})
 
-  return movieTitlesByUrl
+  return getTitlesFromUrls(movies)
 }
 
 function* getSpecies() {
@@ -23,85 +26,61 @@ function* getSpecies() {
     axios.get,
     'https://swapi.dev/api/species/'
   )
-  const pagesAmount = Math.ceil(count/ITEMS_PER_PAGE)
 
-  const urlList = []
-  for (let i = 1; i <= pagesAmount; i++) {
-    urlList.push(`https://swapi.dev/api/species/?page=${i}`)
-  }
-
+  const urlList = getEndpointsList(count, 'https://swapi.dev/api/species')
   const speciesPages = yield all(urlList.map(url => call(axios.get, url)))
   const speciesList = speciesPages.map(page => page.data.results).flat()
 
-  const speciesNamesByUrl = speciesList.reduce((acc, item) => {
-    acc[item.url] = item.name
-    return acc
-  }, {})
-
-  return speciesNamesByUrl
+  return getNamesFromUrls(speciesList)
 }
 
-function* getCharacters() {
-  const { data: { count }} = yield call(axios.get, 'https://swapi.dev/api/people')
-  const pagesNumber = Math.ceil(count/ITEMS_PER_PAGE);
+function* getStarships() {
+  const { data: { count }} = yield call(
+    axios.get,
+    'https://swapi.dev/api/starships/'
+  )
+  const urlList = getEndpointsList(count, 'https://swapi.dev/api/starships')
+  const starshipsPages = yield all(urlList.map(url => call(axios.get, url)))
+  const starshipsList = starshipsPages.map(page => page.data.results).flat()
 
-  let characters = [];
+  return getNamesFromUrls(starshipsList)
+}
 
-  for (let i = 1; i <= pagesNumber; i++) {
-    const { data: { results }} = yield call(
-      axios.get,
-      `https://swapi.dev/api/people/?page=${i}`
-    )
-    characters = [...characters, ...results]
-  }
+function* getList(source) {
+  const { data: { count }} = yield call(axios.get, `https://swapi.dev/api/${source}`)
+
+  const endpointsList = getEndpointsList(count, `https://swapi.dev/api/${source}`)
+  const charactersPages = yield all(endpointsList.map(url => call(axios.get, url)))
+  const characters = charactersPages.map(page => page.data.results).flat()
 
   return characters
 }
 
-const injectMoviesIntoCharacters = (characters, movieTitlesByUrl) => {
-  return characters.map(character => ({
-    ...character,
-    films: character.films.map(filmUrl => movieTitlesByUrl[filmUrl])
-  }))
-}
-
-const injectSpeciesIntoCharacters = (characters, speciesByUrl) => {
-  return characters.map(character => ({
-    ...character,
-    species: character.species.map(url => speciesByUrl[url])
-  }))
-}
-
-const transformBirthYears = characters => {
-  return characters.map(character => {
-    const before = character.birth_year.toLowerCase().includes('bby')
-    const absBirthYear = parseInt(character.birth_year)
-    const birthYear = before ? -absBirthYear : absBirthYear
-    console.log('character.birth_year', character.birth_year, birthYear, character.name);
-    return {
-      ...character,
-      birth_year: birthYear
-    }
-  })
-}
-
 function* getListSaga() {
-  yield put(setLoading(true))
-  const movieTitlesByUrl = yield call(getMovies)
-  const speciesNamesByUrl = yield call(getSpecies)
+  const { charactersList } = yield select();
 
-  const characters = transformBirthYears(
-    injectSpeciesIntoCharacters(
-      injectMoviesIntoCharacters(
-        yield call(getCharacters),
-        movieTitlesByUrl
-      ),
-      speciesNamesByUrl
+  if (charactersList.length === 0) {
+    yield put(setLoading(true))
+    const movieTitlesByUrl = yield call(getMovies)
+    const speciesNamesByUrl = yield call(getSpecies)
+    const starshipsNamesByUrl = yield call(getStarships)
+
+    const characters = transformBirthYears(
+      injectSpeciesIntoCharacters(
+        injectMoviesIntoCharacters(
+          injectStarshipsIntoCharacters(
+            yield call(getList, 'people'),
+            starshipsNamesByUrl
+          ),
+          movieTitlesByUrl
+        ),
+        speciesNamesByUrl
+      )
     )
-  )
 
-  yield put(setList(characters))
-  yield put(setLoading(false))
+    yield put(setList(characters))
+    yield put(setLoading(false))
+  }
 }
 
 export function* watchGetCharactersListSaga() {
