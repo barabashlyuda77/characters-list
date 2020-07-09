@@ -1,9 +1,17 @@
+@import '../../variables';
+
 .details-page-wrapper {
   height: 100%;
   margin: 40px;
 
   .back-image {
     height: 40px;
+
+    &:hover {
+      padding: 1px;
+      background-color: $color-gray;
+      border-radius: 100%;
+    }
   }
 
   .details-wrapper {
