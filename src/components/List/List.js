@@ -1,13 +1,12 @@
-import React from 'react'
+import React from "react";
 
-import Character from '../../components/Character/Character'
-import Progress from '../../components/Progress/Progress'
-import './List.scss'
+import Character from "../../components/Character/Character";
+import Progress from "../../components/Progress/Progress";
+import "./List.scss";
 
 const List = ({ list, loading }) => {
-
   if (loading) {
-    return <Progress />
+    return <Progress />;
   }
 
   return (
@@ -17,6 +16,6 @@ const List = ({ list, loading }) => {
       ))}
     </div>
   );
-}
+};
 
-export default List
+export default List;

@@ -1,7 +1,7 @@
-import React from 'react'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import React from "react";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-import './Progress.scss'
+import "./Progress.scss";
 
 const Progress = () => {
   return (
@@ -9,6 +9,6 @@ const Progress = () => {
       <CircularProgress />
     </div>
   );
-}
+};
 
-export default Progress
+export default Progress;
