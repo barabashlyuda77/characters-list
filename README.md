@@ -1,68 +1,31 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Description
+An application used to display a filterable list of characters from the movie franchise Star Wars, built with JavaScript, React, Redux, Redux-Saga, React Router and SCSS.<br />
+TweetWorld
+Data is taken from an open API called [SWAPI](https://swapi.dev/).
 
-## Available Scripts
+### App Overview
+The app consist of a main view that displaces the list of characters and a filter section, where the user can filter the characters by certain criteria. Clicking on one of the characters from the list opens a detailed view of this character. When the user changes the filter settings in the filter section, the list of characters instantly adapt to only show characters that match the chosen filter settings.
 
-In the project directory, you can run:
+### Filter
+The filter section allows the user to filter the list of characters according to the filter settings:<br />
+- **Movie**: the movie the character appeared in (i.e. show only characters that appeared in Episode IV: A New Hope)
+- **Species**: the character's species (i.e. show only characters that are human)
+- **Birth from** & **Birth to**: a range of years that the character's birth year falls in (i.e. show only
+characters born between -30 (30 BBY) and 5 (5 ABY) )<br />
 
-### `yarn start`
+All filter settings are using an AND relationship, i.e. if the user chooses to filter by movie and species, only characters that appear in the given movie AND are of the specified species should be displayed.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Favorites
+User can save Character into Favourites by using drag and drop.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Installation and Setup
+Clone down [this](https://github.com/barabashlyuda77/characters-list.git) repository. You will need `node` and `npm` installed globally on your machine.
 
-### `yarn test`
+#### Installation
+`npm install` or `yarn`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### To Start Server
+`npm start` or `yarn start`
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+#### To Visit App
+`localhost:3000`
